@@ -1,0 +1,19 @@
+{
+  "name": "fcsbot",
+  "version": "0.4.1",
+  "description": "Discord bot for FCS Server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Discord",
+    "Discordbot",
+    "Bot"
+  ],
+  "author": "Charles Stello",
+  "license": "ISC",
+  "devDependencies": {
+    "discord.js": "^13.1.0"
+  }
+}
