@@ -1,10 +1,11 @@
 const Discord = require("discord.js");
+const { MessageEmbed, Permissions } = require('discord.js');
 const fs = require("fs");
-// Files
+// Files --------------
 const botconfig = require("./botconfig.json");
 const packageconfig = require("./package.json");
-const xp = require("./xp.json");
-const client = new Discord.Client();
+// const xp = require("./xp.json");
+const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS"] })
 
 let statuses = ["*help", "vibin!", "I need more statuses, message Charley!", "Pouring milk before cereal", "T-Posing in the jungle", "FCSBot was supposed to stand for something."];
 
@@ -13,17 +14,18 @@ let bothost = botconfig.host;
 let botver = packageconfig.version;
 
 client.on("ready", () => {
-	console.log(`FCSbot (${botver}) is online in ${client.guilds.cache.size} servers`);
+	console.log(`FCSBot (${botver}) is online in ${client.guilds.cache.size} servers`);
 	client.user.setStatus("online");
 
 	setInterval(function() {
 		let status = statuses[Math.floor(Math.random() * statuses.length)];
-		client.user.SetActivity(status);
-	}, 300000);
+		client.user.setActivity(status);
+		console.log("A Status should have been set :)")
+	}, 60000);
 });
 
-client.on("message", msg => {
-	let author = msg.author;
+client.on("messageCreate", msg => {
+	let author = msg.author
 	let messageArray = msg.content.split(" ");
 	let cmd = messageArray[0].toLowerCase();
 	let args = messageArray[1];
@@ -32,49 +34,60 @@ client.on("message", msg => {
 	// Basic
 
 	if (cmd === prefix + "hello") {
-		msg.channel.send(`<@${author}> please stop talking to me`);
+		msg.channel.send(`${author} please stop talking to me.`);
 	}
 
 	if (cmd === prefix + "help") {
-		console.log(`${args} menu called`);
-		switch(args.toLowerCase()) {
-			case "general":
-				let embed0 = new Discord.MessageEmbed()
-				.setColor("#00539B")
-				.setTitle("General Help Menu")
-				.addField("Hello", "Receive a warm greeting! ;)")
-				.addField("Help", "You're here")
-				.addField("Botinfo", "Get bot information (Dev information) and no it does not give the token")
-				.addField("Ping", "Returns pong (checks the online status of the bot)");
-				// .addField("Profile", "Shows your global xp profile!");
-				return msg.channel.send(embed0);
+		if (!args) {
+			msg.channel.send("No help menu specified");
+			msg.channel.send("Please choose from the following 'General or Fun' ex: *help general");
+		} else {
+			console.log(`${args} menu called`);
+			switch(args.toLowerCase()) {
+				case "general":
+				let embed0 = new MessageEmbed()
+				.setColor('#00539B')
+				.setTitle('General Help Menu')
+				.addFields(
+					{ name: "Hello", value: "Receive a warm greeting! ;)"},
+					{ name: "Help", value: "You're here"},
+					{ name: "Botinfo", value: "Get bot information (Dev information) and no it does not give the token"},
+					{ name: "Ping", value: "Returns pong (checks the online status of the bot)"}
+				)
+				.setTimestamp()
+				return msg.channel.send({embeds: [embed0]});
 				break;
 			case "fun":
-				let embed1 = new Discord.MessageEmbed()
-				.setColor("#00539B") // Change to Lime Green
-				.setTile("Fun Help Menu")
-				.addField("Hug <@mention>", "Hug your friends!")
-				.addField("Howsmart <@mention>", "Figure out how smart you or your friends are (100% accurate)")
-				.addField("Howcute <@mention>", "Figure out how cute you and your friends are (100% accurate)");
-				return msg.channel.send(embed1);
+				let embed1 = new MessageEmbed()
+				.setColor('#00539B')
+				.setTitle('Fun Help Menu')
+				.addFields(
+					{ name: "Hug <@mention>", value: "Hug your friends!"},
+					{ name: "Howsmart <@mention>", value: "Figure out how smart you or your friends are (100% accurate)"},
+					{ name: "Howcute <@mention>", value: "Figure out how cute you and your friends are (100% accurate)"}
+				)
+				return msg.channel.send({embeds: [embed1]});
 				break;
 			default:
-				msg.channel.send("No help menu specified");
+				msg.channel.send("That help menu does not exist!");
 				msg.channel.send("Please choose from the following 'General or Fun' ex: *help general");
-		};
+			};
+		}
 	}
 
 	if (cmd === prefix + "botinfo") {
 		msg.delete();
-		let embed = new Discord.MessageEmbed()
-		.setColor("#00539B")
-		.setTitle("Bot Information")
-		// .setThumbnail("")
-		.addField("Bot Name", client.user.username)
-		.addField("Bot Tag", client.user.tag)
-		.addField("version", botver)
-		.addField("Hosted on", bothost);
-		return msg.channel.send(embed);
+		let embed = new MessageEmbed()
+		.setColor('#00539B')
+		.setTitle('General Help Menu')
+		.addFields(
+			{ name: "Bot Name", value: client.user.username},
+			{ name: "Bot Tag", value: client.user.tag},
+			{ name: "Version", value: botver},
+			{ name: "Hosted On", value: bothost},
+		)
+		.setTimestamp()
+		return msg.channel.send({embeds: [embed]});
 	}
 
 	if (cmd === prefix + "ping") {
@@ -88,12 +101,10 @@ client.on("message", msg => {
 		let target = msg.mentions.users.first();
 		if (!target) {
 						let receiver = author;
-						msg.channel.send(url);
-						msg.channel.send(`<@${receiver}> hugs themselves. This is so sad ;(`);
+						msg.channel.send(`${receiver} hugs themselves. This is so sad ;(`);
 					} else {
 						let receiver = target;
-						msg.channel.send(url);
-						msg.channel.send(`<@${receiver}> you are being hugged by <@${author}>`);
+						msg.channel.send(`${receiver} you are being hugged by ${author}`);
 					}
 	}
 
@@ -104,7 +115,7 @@ client.on("message", msg => {
 		if (!smartboi) {
 			msg.channel.send(`You didn't specify anyone and because of this you are 0% smart`);
 		} else {
-			msg.channel.send(`<@${smartboi}> is ${sval}% smart`);
+			msg.channel.send(`${smartboi} is ${sval}% smart`);
 		}
 	}
 
@@ -114,16 +125,29 @@ client.on("message", msg => {
 		let cutie = msg.mentions.users.first();
 		let cutieval = Math.floor(Math.random() * 100) + 1;
 		if (!cutie) {
-			msg.channel.send(`<@${author}> you didn't specify anyone and because of this you 0% cute`);
+			msg.channel.send(`${author} you didn't specify anyone and because of this you 0% cute`);
 		} else {
 			if (cutieval >= 90) {
-				msg.channel.send(`<@${cutie}> is very cute coming in at a whopping ${cutieval}% cute `)
+				msg.channel.send(`${cutie} is very cute coming in at a whopping ${cutieval}% cute `);
 			} else {
-				msg.channel.send(`<@${cutie}> is ${cutieval}% cute`);
+				msg.channel.send(`${cutie} is ${cutieval}% cute`);
 			}
 		}
 	}
 
-})
+	// Moderation
+ /*
+	if (cmd === prefix + "purge") {
+		console.log("Purge command Called to delete " + args + " messages!");
+		msg.delete();
+		if (!msg.author.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) { // Cannot read property "has" of undefined. Figure out how to see permissions
+			msg.channel.send(`${author}, you don't have sufficent permissions for that command!`);
+		} else {
+		msg.channel.bulkDelete(args).then(msg.channel.send(`${args} messages deleted`));
+		}
+	}
+ */
+
+});
 
 client.login(botconfig.token);

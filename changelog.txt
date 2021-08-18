@@ -1,0 +1,14 @@
+0.1.0
+
+Updated to Discord.js v13
+Updated Login credentials for newly inforced intents
+Fixed many depreciated methods:
+- Presence (Originally Activity)
+- Embeds
+Reworked Embeds to support v13
+Added Purge command
+
+0.0.1
+
+Created the bot
+Added framework and multiple basic commands

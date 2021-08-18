@@ -1,18 +1,21 @@
 {
   "name": "fcsbot",
-  "version": "0.4.1",
-  "description": "Discord bot for FCS Server",
+  "version": "0.1.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "Discord",
-    "Discordbot",
-    "Bot"
-  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Syntaxis-Web/FCSBot.git"
+  },
   "author": "Charles Stello",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Syntaxis-Web/FCSBot/issues"
+  },
+  "homepage": "https://github.com/Syntaxis-Web/FCSBot#readme",
   "devDependencies": {
     "discord.js": "^13.1.0"
   }
