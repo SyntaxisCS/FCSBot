@@ -5,7 +5,7 @@ const fs = require("fs");
 const botconfig = require("./botconfig.json");
 const packageconfig = require("./package.json");
 // const xp = require("./xp.json");
-const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS"] })
+const client = new Discord.Client({intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS"]});
 
 let statuses = ["*help", "vibin!", "I need more statuses, message Charley!", "Pouring milk before cereal", "T-Posing in the jungle", "FCSBot was supposed to stand for something."];
 
@@ -20,12 +20,11 @@ client.on("ready", () => {
 	setInterval(function() {
 		let status = statuses[Math.floor(Math.random() * statuses.length)];
 		client.user.setActivity(status);
-		console.log("A Status should have been set :)")
 	}, 600000);
 });
 
 client.on("messageCreate", msg => {
-	let author = msg.author
+	let author = msg.author;
 	let messageArray = msg.content.split(" ");
 	let cmd = messageArray[0].toLowerCase();
 	let args = messageArray[1];
@@ -54,7 +53,7 @@ client.on("messageCreate", msg => {
 					{ name: "Botinfo", value: "Get bot information (Dev information) and no it does not give the token"},
 					{ name: "Ping", value: "Returns pong (checks the online status of the bot)"}
 				)
-				.setTimestamp()
+				.setTimestamp();
 				return msg.channel.send({embeds: [embed0]});
 				break;
 			case "fun":
@@ -65,7 +64,7 @@ client.on("messageCreate", msg => {
 					{ name: "Hug <@mention>", value: "Hug your friends!"},
 					{ name: "Howsmart <@mention>", value: "Figure out how smart you or your friends are (100% accurate)"},
 					{ name: "Howcute <@mention>", value: "Figure out how cute you and your friends are (100% accurate)"}
-				)
+				);
 				return msg.channel.send({embeds: [embed1]});
 				break;
 			/* case "moderation":
@@ -82,7 +81,7 @@ client.on("messageCreate", msg => {
 			default:
 				msg.channel.send("That help menu does not exist!");
 				msg.channel.send("Please choose from the following 'General or Fun' ex: *help general");
-			};
+			}
 		}
 	}
 
@@ -95,9 +94,9 @@ client.on("messageCreate", msg => {
 			{ name: "Bot Name", value: client.user.username},
 			{ name: "Bot Tag", value: client.user.tag},
 			{ name: "Version", value: botver},
-			{ name: "Hosted On", value: bothost},
+			{ name: "Hosted On", value: bothost}
 		)
-		.setTimestamp()
+		.setTimestamp();
 		return msg.channel.send({embeds: [embed]});
 	}
 
