@@ -21,7 +21,7 @@ client.on("ready", () => {
 		let status = statuses[Math.floor(Math.random() * statuses.length)];
 		client.user.setActivity(status);
 		console.log("A Status should have been set :)")
-	}, 60000);
+	}, 600000);
 });
 
 client.on("messageCreate", msg => {
@@ -68,6 +68,17 @@ client.on("messageCreate", msg => {
 				)
 				return msg.channel.send({embeds: [embed1]});
 				break;
+			/* case "moderation":
+				let embed2 = new MessageEmbed()
+				.setColor("#00539B")
+				.setTitle("Moderation Help Menu")
+				.addFields(
+					{name: "Purge <#>", value: "Bulk deletes messages. Maximum of 60-80 please"},
+					//{name: "Kick <@mention>", value: "Kicks a user"},
+					//{name: "Ban <@mention>", value: "Bans a user"}
+				
+				return msg.channel.send({embeds: [embed2]});
+				break;*/
 			default:
 				msg.channel.send("That help menu does not exist!");
 				msg.channel.send("Please choose from the following 'General or Fun' ex: *help general");
@@ -136,7 +147,20 @@ client.on("messageCreate", msg => {
 	}
 
 	// Moderation
- /*
+/*
+	if (cmd === prefix + "kick") {
+		if (!permisions.has) { Check for kick permissions
+			msg.channel.send("You don't have the permissions for that!");
+		} else {
+ 			if(!args) {
+				msg.channel.send(`${author}, you didn't specify who to kick!`);
+			} else {
+				console.log(`${author}, has called to kick ${args}`);
+			}
+	//	}
+	}
+	
+
 	if (cmd === prefix + "purge") {
 		console.log("Purge command Called to delete " + args + " messages!");
 		msg.delete();
@@ -146,8 +170,7 @@ client.on("messageCreate", msg => {
 		msg.channel.bulkDelete(args).then(msg.channel.send(`${args} messages deleted`));
 		}
 	}
- */
-
+*/
 });
 
 client.login(botconfig.token);
