@@ -63,7 +63,8 @@ Reworked Embeds to support v13
 Added Purge command
 
 ### 0.0.1
-    * Initial Release
+
+Initial Release
 
 ## License
 
