@@ -4,6 +4,7 @@ const fs = require("fs");
 // Files --------------
 const botconfig = require("./botconfig.json");
 const packageconfig = require("./package.json");
+const timedReplies = require("./timedreplies.json");
 // const xp = require("./xp.json");
 const client = new Discord.Client({intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS"]});
 
@@ -29,6 +30,8 @@ client.on("messageCreate", msg => {
 	let cmd = messageArray[0].toLowerCase();
 	let args = messageArray[1];
 	let args2 = msg.content.split(" ").slice(2).join(" ");
+
+  if (!msg.author.bot) {
 
 	// Basic
 
@@ -146,7 +149,19 @@ client.on("messageCreate", msg => {
 	}
 
 	// Moderation
-/*
+
+	if (cmd === prefix + "timedreplies") {
+		if (timedReplies.replystatus = true) {
+			console.log("Timed replies set to off");
+			timedReplies.replystatus = false;
+		} else {
+			console.log("Timed replies set to on");
+			timedReplies.replystatus = true;
+		}
+	}
+
+
+	/*
 	if (cmd === prefix + "kick") {
 		if (!permisions.has) { Check for kick permissions
 			msg.channel.send("You don't have the permissions for that!");
@@ -156,20 +171,30 @@ client.on("messageCreate", msg => {
 			} else {
 				console.log(`${author}, has called to kick ${args}`);
 			}
-	//	}
-	}
-	
-
-	if (cmd === prefix + "purge") {
-		console.log("Purge command Called to delete " + args + " messages!");
-		msg.delete();
-		if (!msg.author.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) { // Cannot read property "has" of undefined. Figure out how to see permissions
-			msg.channel.send(`${author}, you don't have sufficent permissions for that command!`);
-		} else {
-		msg.channel.bulkDelete(args).then(msg.channel.send(`${args} messages deleted`));
 		}
 	}
-*/
+	*/
+
+	if (cmd === prefix + "purge") {
+		if (!msg.member.permissions.has("MANAGE_MESSAGES")) {
+			msg.delete();
+			msg.channel.send(`${author}, you do not have sufficient permissions for that command`);
+		} else {
+			msg.channel.bulkDelete(args).then(msg.channel.send(`${args} message(s) deleted`));
+		}
+	}
+
+	// Unnamed timed module
+	let timeCheck = new Date().getHours();
+		if (timedReplies.replystatus === true) {
+			if (timeCheck >= 15 && timeCheck <= 16) { // 8 - 15
+				console.log(`It's currently ${timeCheck}:00`);
+				msg.delete();
+				let reply = timedReplies.replies;
+				msg.channel.send(timedReplies.replies[Math.floor(Math.random() * reply.length)]);
+			}
+		}
+  }
 });
 
 client.login(botconfig.token);

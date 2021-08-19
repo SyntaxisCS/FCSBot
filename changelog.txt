@@ -1,3 +1,11 @@
+0.1.2
+
+Added timed during school moderation
+Added profile picture for bot
+Added the ability for the bot to ignore it's own messages
+Added 3 new replies to the reply manager
+Impletemented permissions for moderation command
+
 0.1.1
 
 Changed presence back to activity
