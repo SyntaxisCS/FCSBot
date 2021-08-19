@@ -41,7 +41,7 @@ Contributors names and contact info
 
 ## Version History
 
-# 0.1.1
+#### 0.1.1
 
 Changed presence back to activity
 Changed status carousel from 1 minute to 10 minutes
@@ -50,7 +50,7 @@ Started the beginning of the moderation framework:
 - Added  basic moderation help menu (noted)
 - Added basic moderation framework (noted)
 
-# 0.1.0
+#### 0.1.0
 
 Updated to Discord.js v13
 Updated Login credentials for newly inforced intents
@@ -62,7 +62,7 @@ Fixed many depreciated methods:
 Reworked Embeds to support v13
 Added Purge command
 
-# 0.0.1
+#### 0.0.1
     * Initial Release
 
 ## License
