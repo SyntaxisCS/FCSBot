@@ -15,7 +15,7 @@ A Discord.js Bot created for my school's coding class. Commands are being made f
 
 ### Installing
 
-* Clone/Download main or a certain release
+* Download the latest release (Clone/Download Main for a less stable version)
 * Extract node_modules
 * Insure Node.js is updated to v16
 * Make your own bot token and put it in the botconfig.json under the token line
