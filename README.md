@@ -15,7 +15,8 @@ A Discord.js Bot created for my school's coding class. Commands are being made f
 
 ### Installing
 
-* Clone/Download main or a certain release
+* Download the latest release (seen on the right side)
+    (Optional) Download the main branch for a less stable version
 * Extract node_modules
 * Insure Node.js is updated to v16
 * Make your own bot token and put it in the botconfig.json under the token line
@@ -35,11 +36,19 @@ If you experience any issues please open an issue
 
 ## Authors
 
-Contributors names and contact info
-
 * Charles Stello
 
 ## Version History
+
+### 0.1.2
+
+Added timedReplies module during school moderation
+Added profile picture for bot
+Added the ability for the bot to ignore its own messages
+Added 3 new replies to the reply manager
+Implemented permissions for moderation command
+Added timed replies command
+Added error handling to purge command (enforces a maximum of 100 messages to avoid discord.js related crashes)
 
 ### 0.1.1
 
