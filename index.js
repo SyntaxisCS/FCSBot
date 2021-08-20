@@ -160,20 +160,45 @@ client.on("messageCreate", msg => {
 		}
 	}
 
-
-	/*
+/*
 	if (cmd === prefix + "kick") {
-		if (!permisions.has) { Check for kick permissions
-			msg.channel.send("You don't have the permissions for that!");
+	  let baddie = msg.mentions.users.first();
+		if (!msg.member.permissions.has("KICK_MEMBERS")) {
+			msg.delete();
+			msg.channel.send(`${author}, you do not have sufficient permissions for that command`);
 		} else {
- 			if(!args) {
-				msg.channel.send(`${author}, you didn't specify who to kick!`);
+			if (!baddie) {
+				msg.channel.send(`You didn't specify who to kick`);
 			} else {
-				console.log(`${author}, has called to kick ${args}`);
+				if (!args2) {
+					args2 = "You were kicked by FCSBot. I guess behave next time :/";
+				}
+				msg.delete();
+				msg.guild.member(baddie).kick(args2); // .kick() is not a function
+				msg.channel.send(`${author} has kicked ${baddie}`);
 			}
 		}
 	}
-	*/
+
+	if (cmd === prefix + "ban") {
+	  let baddie = msg.mentions.users.first();
+		if (!msg.member.permissions.has("BAN_MEMBERS")) {
+			msg.delete();
+			msg.channel.send(`${author}, you do not have sufficient permissions for that command`);
+		} else {
+			if (!baddie) {
+				msg.channel.send(`You didn't specify who to ban!`);
+			} else {
+				if (!args2) {
+					args2 = "You were banned by FCSBot.";
+				}
+					msg.delete();
+					msg.guild.member(baddie).ban(args2); // .ban() is not a function
+					msg.channel.send(`${author} has banned ${baddie}`);
+			}
+		}
+	}
+*/
 
 	if (cmd === prefix + "purge") {
 		if (!msg.member.permissions.has("MANAGE_MESSAGES")) {
