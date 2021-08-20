@@ -35,11 +35,19 @@ If you experience any issues please open an issue
 
 ## Authors
 
-Contributors names and contact info
-
 * Charles Stello
 
 ## Version History
+
+### 0.1.2
+
+Added timedReplies module during school moderation
+Added profile picture for bot
+Added the ability for the bot to ignore its own messages
+Added 3 new replies to the reply manager
+Implemented permissions for moderation command
+Added timed replies command
+Added error handling to purge command (enforces a maximum of 100 messages to avoid discord.js related crashes)
 
 ### 0.1.1
 
