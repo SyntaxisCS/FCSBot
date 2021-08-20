@@ -1,10 +1,12 @@
 0.1.2
 
-Added timed during school moderation
+Added timedReplies module during school moderation
 Added profile picture for bot
 Added the ability for the bot to ignore it's own messages
 Added 3 new replies to the reply manager
 Impletemented permissions for moderation command
+Added timed replies command
+Added error handling to purge command (enforces maximum of 100 messages)
 
 0.1.1
 

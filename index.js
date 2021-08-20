@@ -151,12 +151,18 @@ client.on("messageCreate", msg => {
 	// Moderation
 
 	if (cmd === prefix + "timedreplies") {
-		if (timedReplies.replystatus = true) {
-			console.log("Timed replies set to off");
-			timedReplies.replystatus = false;
+		if (!msg.member.permissions.has("MANAGE_MESSAGES")) {
+			msg.channel.send(`${author} you do not have sufficient permissions for that command`);
 		} else {
-			console.log("Timed replies set to on");
-			timedReplies.replystatus = true;
+			if (timedReplies.replystatus === true) {
+				console.log(`${author} turned off timedReplies`);
+				timedReplies.replystatus = false;
+				fs.writeFile("./timedreplies.json", JSON.stringify(timedReplies), (err) => {if(err) console.log(err);});
+			} else {
+				console.log(`${author} turned on timedReplies`);
+				timedReplies.replystatus = true;
+				fs.writeFile("./timedreplies.json", JSON.stringify(timedReplies), (err) => {if(err) console.log(err);});
+			}
 		}
 	}
 
@@ -200,25 +206,34 @@ client.on("messageCreate", msg => {
 	}
 */
 
+function isFloat(x) { return !!(x % 1); }
+
 	if (cmd === prefix + "purge") {
 		if (!msg.member.permissions.has("MANAGE_MESSAGES")) {
 			msg.delete();
 			msg.channel.send(`${author}, you do not have sufficient permissions for that command`);
 		} else {
-			msg.channel.bulkDelete(args).then(msg.channel.send(`${args} message(s) deleted`));
+			if (!args) {
+				msg.channel.send(`${author} you must specify how many messages to delete!`);
+			} else {
+				if (args >= 101) {
+					args = 100;
+					msg.channel.send("Max of 100 messages please!");
+				}
+				msg.channel.bulkDelete(args).then(msg.channel.send(`${args} message(s) deleted`));
+			}
 		}
 	}
 
-	// Unnamed timed module
-	let timeCheck = new Date().getHours();
-		if (timedReplies.replystatus === true) {
-			if (timeCheck >= 15 && timeCheck <= 16) { // 8 - 15
-				console.log(`It's currently ${timeCheck}:00`);
-				msg.delete();
-				let reply = timedReplies.replies;
-				msg.channel.send(timedReplies.replies[Math.floor(Math.random() * reply.length)]);
-			}
+	// Timed Replies Module
+	if (timedReplies.replystatus === true) {
+		let timeCheck = new Date().getHours();
+		if (timeCheck >= 0 && timeCheck <= 1) { // 8 - 15
+			console.log(`It's currently ${timeCheck}:00`);
+			let reply = timedReplies.replies;
+			msg.channel.send(timedReplies.replies[Math.floor(Math.random() * reply.length)]);
 		}
+	}
   }
 });
 
