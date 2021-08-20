@@ -206,8 +206,6 @@ client.on("messageCreate", msg => {
 	}
 */
 
-function isFloat(x) { return !!(x % 1); }
-
 	if (cmd === prefix + "purge") {
 		if (!msg.member.permissions.has("MANAGE_MESSAGES")) {
 			msg.delete();
