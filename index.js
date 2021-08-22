@@ -104,8 +104,12 @@ client.on("messageCreate", msg => {
 	}
 
 	if (cmd === prefix + "ping") {
-		console.log("Pong!");
-		msg.channel.send("Pong!");
+		msg.channel.send("Pinging...Stand by...").then(ping => {
+			let pingCalc = ping.createdTimestamp - msg.createdTimestamp;
+			ping.delete();
+			msg.channel.send(`Pong!(${pingCalc}ms)`);
+			console.log(`Latency = ${pingCalc}`);
+		})
 	}
 
 	// Fun
