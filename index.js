@@ -90,12 +90,13 @@ client.on("messageCreate", msg => {
 
 	if (cmd === prefix + "botinfo") {
 		msg.delete();
+		let tag = client.user.tag.split("#");
 		let embed = new MessageEmbed()
 		.setColor('#00539B')
 		.setTitle('General Help Menu')
 		.addFields(
 			{ name: "Bot Name", value: client.user.username},
-			{ name: "Bot Tag", value: client.user.tag},
+			{ name: "Bot Tag", value: tag[1]},
 			{ name: "Version", value: botver},
 			{ name: "Hosted On", value: bothost}
 		)
