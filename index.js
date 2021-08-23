@@ -279,4 +279,40 @@ client.on("messageCreate", msg => {
   }
 });
 
+function rpsJudge(pChoice, bChoice) {
+	if (bChoice.toLowerCase() === "rock") {
+		if (pChoice === "rock") {
+			return "it's a draw!";
+		}
+		if (pChoice === "paper") {
+			return "you win!";
+		}
+		if (pChoice === "scissors") {
+			return "you lose!";
+		}
+	}
+	if (bChoice.toLowerCase() === "paper") {
+		if (pChoice === "rock") {
+			return "you lose!";
+		}
+		if (pChoice === "paper") {
+			return "it's a draw!";
+		}
+		if (pChoice === "scissors") {
+			return "you win!";
+		}
+	}
+	if (bChoice.toLowerCase() === "scissors") {
+		if (pChoice === "rock") {
+			return "you win!";
+		}
+		if (pChoice === "paper") {
+			return "you lose!";
+		}
+		if (pChoice === "scissors") {
+			return "it's a draw!";
+		}
+	}
+}
+
 client.login(botconfig.token);
