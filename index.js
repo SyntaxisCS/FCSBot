@@ -216,13 +216,17 @@ client.on("messageCreate", msg => {
 			msg.channel.send(`${author}, you do not have sufficient permissions for that command`);
 		} else {
 			if (!args) {
-				msg.channel.send(`${author} you must specify how many messages to delete!`);
+				msg.channel.send(`${author} you must specify how many messages to delete! ex: *purge ${Math.floor(Math.random() * 53) + 1}`);
 			} else {
 				if (args >= 101) {
 					args = 100;
 					msg.channel.send("Max of 100 messages please!");
 				}
-				msg.channel.bulkDelete(args).then(msg.channel.send(`${args} message(s) deleted`));
+				if (args.includes(".")) {
+					let d = args.split(".");
+					args = d[0];
+				}
+				msg.channel.bulkDelete(Math.abs(args)).then(msg.channel.send(`${Math.abs(args)} message(s) deleted`));
 			}
 		}
 	}
