@@ -153,6 +153,41 @@ client.on("messageCreate", msg => {
 		}
 	}
 
+	if (cmd === prefix + "coinflip" || cmd === prefix + "cf") {
+  		let coin = Math.floor(Math.random()*2)+1;
+  		if (coin === 1) {
+  			msg.channel.send("It's heads!");
+  		} else {
+  			msg.channel.send("It's tails!");
+  		}
+  	}
+
+  	if (cmd === prefix + "rockpaperscissors" || cmd === prefix + "rps") {
+  		let uChoice;
+  		if (!args) {
+  			msg.channel.send(`You didn't make a move! ex: *rps rock`);
+  		} else {
+  			let uChoice = args.toLowerCase();
+  			if (uChoice === "rock" || uChoice === "paper" || uChoice === "scissors") {
+  			let myChoice = Math.floor(Math.random()*3)+1;
+  			switch(myChoice) {
+  				case 1: // Rock
+  					myChoice = "Rock";
+  					break;
+  				case 2:
+  					myChoice = "Paper";
+  					break;
+  				case 3:
+  					myChoice = "Scissors";
+  			}
+  				// Game Judgement
+  				msg.channel.send(`I chose ${myChoice} and that means ${rpsJudge(uChoice, myChoice)}`);	
+  			} else {
+  				msg.channel.send(`${author} that's not a valid move`);
+  			}
+  		}
+  	}
+
 	// Moderation
 
 	if (cmd === prefix + "timedreplies") {
@@ -212,8 +247,8 @@ client.on("messageCreate", msg => {
 */
 
 	if (cmd === prefix + "purge") {
+		msg.delete();
 		if (!msg.member.permissions.has("MANAGE_MESSAGES")) {
-			msg.delete();
 			msg.channel.send(`${author}, you do not have sufficient permissions for that command`);
 		} else {
 			if (!args) {
