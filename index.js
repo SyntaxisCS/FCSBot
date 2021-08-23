@@ -8,7 +8,7 @@ const timedReplies = require("./timedreplies.json");
 // const xp = require("./xp.json");
 const client = new Discord.Client({intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS"]});
 
-let statuses = ["*help", "vibin!", "I need more statuses, message Charley!", "Pouring milk before cereal", "T-Posing in the jungle", "FCSBot was supposed to stand for something."];
+let statuses = ["*help","vibin!","I need more statuses, message Charley!","Pouring milk before cereal","T-Posing in the jungle","FCSBot was supposed to stand for something","What is my purpose?","I am sentient...", "I need more knowledge!"];
 
 let prefix = botconfig.prefix;
 let bothost = botconfig.host;
