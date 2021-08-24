@@ -1,6 +1,6 @@
 {
   "name": "fcsbot",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,5 +18,8 @@
   "homepage": "https://github.com/Syntaxis-Web/FCSBot#readme",
   "devDependencies": {
     "discord.js": "^13.1.0"
+  },
+  "dependencies": {
+    "pretty-ms": "^7.0.1"
   }
 }

@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const { MessageEmbed, Permissions } = require('discord.js');
+const prettyMilliseconds = require('pretty-ms');
 const fs = require("fs");
 // Files --------------
 const botconfig = require("./botconfig.json");
@@ -49,11 +50,12 @@ client.on("messageCreate", msg => {
 				case "general":
 				let embed0 = new MessageEmbed()
 				.setColor('#00539B')
-				.setTitle('General Help Menu')
+				.setTitle('Info Help Menu')
 				.addFields(
 					{ name: "Hello", value: "Receive a warm greeting! ;)"},
 					{ name: "Help", value: "You're here"},
-					{ name: "Botinfo", value: "Get bot information (Dev information) and no it does not give the token"},
+					{ name: "Botinfo/Info", value: "Get bot information (Dev information) and no it does not give the token"},
+					{ name: "Uptime", value: "Shows the current uptime of the bot" },
 					{ name: "Ping", value: "Returns pong (checks the online status of the bot)"}
 				)
 				.setTimestamp();
@@ -66,7 +68,9 @@ client.on("messageCreate", msg => {
 				.addFields(
 					{ name: "Hug <@mention>", value: "Hug your friends!"},
 					{ name: "Howsmart <@mention>", value: "Figure out how smart you or your friends are (100% accurate)"},
-					{ name: "Howcute <@mention>", value: "Figure out how cute you and your friends are (100% accurate)"}
+					{ name: "Howcute <@mention>", value: "Figure out how cute you and your friends are (100% accurate)"},
+					{ name: "Coinflip", value: "Flip a coin" },
+  					{ name: "Rockpaperscissors, rps", value: "You know how to play :)" }
 				);
 				return msg.channel.send({embeds: [embed1]});
 				break;
@@ -88,21 +92,27 @@ client.on("messageCreate", msg => {
 		}
 	}
 
-	if (cmd === prefix + "botinfo") {
+	if (cmd === prefix + "botinfo" || cmd === prefix + "info") {
 		msg.delete();
 		let tag = client.user.tag.split("#");
 		let embed = new MessageEmbed()
 		.setColor('#00539B')
-		.setTitle('General Help Menu')
+		.setAuthor(client.user.username, client.user.avatarURL())
 		.addFields(
-			{ name: "Bot Name", value: client.user.username},
-			{ name: "Bot Tag", value: tag[1]},
-			{ name: "Version", value: botver},
-			{ name: "Hosted On", value: bothost}
+			{name: "Version", value: botver, inline: true},
+  			{name: "Creator", value: "Syntaxis#5260", inline: true},
+			{name: '\u200B', value: '\u200B'},
+			{name: "Library", value: "discord.js", inline: true},
+  			{name: "Hosted on", value: bothost, inline: true}
 		)
-		.setTimestamp();
+		.setFooter(`Uptime: ${prettyMilliseconds(client.uptime,{compact: true})}`);
 		return msg.channel.send({embeds: [embed]});
 	}
+
+	if (cmd === prefix + "uptime") {
+  		msg.delete();
+  		msg.channel.send(`Uptime: ${prettyMilliseconds(client.uptime,{compact: true})}`);
+  	}
 
 	if (cmd === prefix + "ping") {
 		msg.channel.send("Pinging...Stand by...").then(ping => {
