@@ -83,7 +83,7 @@ Initial Release
 
 ## License
 
-This project is licensed under the ISC License
+This project is licensed under the GNU AGPLv3 License
 
 ## Acknowledgments
 
